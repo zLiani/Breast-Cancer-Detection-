@@ -20,6 +20,6 @@ def clean_data(df, threshold):
     missing_in_column = df.isnull().sum() / len(df) * 100
     print ("missing data count:", missing_in_column)
     return df
-
+#new commit
 
 clean_data(df, 0.05)
