@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
 
 # Load the dataset
 data = load_breast_cancer()
@@ -28,10 +29,12 @@ def clean_data(df, threshold):
 
 clean_data(df, 0.05)
 
-# Random Forest Model
-# Split data into Training, Testing, and Validation (60%-20%-20%)
 # xSet is feature vector, ySet is the target
 xSet = df.drop('target', axis=1)
 ySet = df['target']
 
+# Split data into Training, Testing, and Validation (60%-20%-20%)
+x_train, x_test, y_train, y_test = train_test_split(xSet, ySet, test_size=0.2, random_state=42)
+x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.25, random_state=42)
 
+# Random Forest Model
