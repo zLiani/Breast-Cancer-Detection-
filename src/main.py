@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 
 # Load the dataset
 data = load_breast_cancer()
@@ -38,3 +39,8 @@ x_train, x_test, y_train, y_test = train_test_split(xSet, ySet, test_size=0.2, r
 x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.25, random_state=42)
 
 # Random Forest Model
+rf = RandomForestClassifier()
+forestFit = rf.fit(x_train,y_train)
+y_prediction = rf.predict(x_test)
+
+print(y_prediction)
