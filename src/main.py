@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
@@ -8,7 +9,7 @@ data = load_breast_cancer()
 df = pd.DataFrame(data.data, columns=data.feature_names)
 df['target'] = data.target
 
-print(df) # provides count, mean, std, min, max, etc of data
+#print(df) # provides count, mean, std, min, max, etc of data
 
 def clean_data(df, threshold):
     # If more than 5% of the dataset contains rows with missing data, (or a row is more than half null)
@@ -39,8 +40,10 @@ x_train, x_test, y_train, y_test = train_test_split(xSet, ySet, test_size=0.2, r
 x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.25, random_state=42)
 
 # Random Forest Model
-rf = RandomForestClassifier()
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
 forestFit = rf.fit(x_train,y_train)
-y_prediction = rf.predict(x_test)
-
-print(y_prediction)
+y_valPrediction = rf.predict(x_val)
+val_accuracy = accuracy_score(y_val, y_valPrediction)
+feature_report = classification_report(y_val, y_valPrediction)
+# Use test data after training and validating the model
+print(feature_report)
