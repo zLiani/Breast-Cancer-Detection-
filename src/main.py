@@ -1,4 +1,6 @@
 import pandas as pd
+from sklearn.tree import plot_tree
+from matplotlib import pyplot as plt
 from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
@@ -46,4 +48,13 @@ y_valPrediction = rf.predict(x_val)
 val_accuracy = accuracy_score(y_val, y_valPrediction)
 feature_report = classification_report(y_val, y_valPrediction)
 # Use test data after training and validating the model
-print(feature_report)
+
+
+
+# Visualize the dataset and the results (gini impurity, other criteria)
+fn=xSet
+cn=ySet
+fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (4,4), dpi=800)
+plot_tree(rf.estimators_[0], feature_names = fn.columns,class_names=["Malignant", "Benign"],filled = True)
+fig.savefig('RFC_tree1.png')
+#print(feature_report)
