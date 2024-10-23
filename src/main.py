@@ -43,15 +43,25 @@ x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.
 
 # Random Forest Model
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
-forestFit = rf.fit(x_train,y_train)
+rf.fit(x_train,y_train)
 y_valPrediction = rf.predict(x_val)
 val_accuracy = accuracy_score(y_val, y_valPrediction)
-feature_report = classification_report(y_val, y_valPrediction)
+feature_report_val = classification_report(y_val, y_valPrediction)
+
 # Use test data after training and validating the model
+y_testPrediction = rf.predict(x_test)
+test_accuracy = accuracy_score(y_test, y_testPrediction)
+feature_report_test = classification_report(y_test, y_testPrediction)
 
+# Print Classification Reports and accuracy for validation and test datasets
+print(f'Validation Accuracy: {val_accuracy:.2f}')
+print("Validation Data Classification Report:")
+print(feature_report_val)
+print(f'Test Accuracy: {test_accuracy:.2f}')
+print("Test Data Classification Report:")
+print(feature_report_test)
 
-
-# Visualize the dataset and the results (gini impurity, other criteria)
+# Visualize the dataset and the results (maybe add gini impurity, other criteria)
 fn=xSet
 cn=ySet
 fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (4,4), dpi=800)
